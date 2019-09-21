@@ -110,8 +110,11 @@ public class ContentTypeUtil {
 			contentType = "font/woff2";
 		} else if(extensao.equals(".xhtml")) {
 			contentType = "application/xhtml+xml";
-		} else if(extensao.equals(".xls") || extensao.equals(".xlsx")) {
-			contentType = "application/vnd.ms-excel";
+		} else if(extensao.equals(".xls")) {
+			contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.template";
+		} else if(extensao.equals(".xlsx")) {
+			contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";	
+			//contentType = "application/vnd.ms-excel";
 		} else if(extensao.equals(".xml")) {
 			contentType = "application/xml";
 		} else if(extensao.equals(".xul")) {

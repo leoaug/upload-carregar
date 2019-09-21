@@ -20,7 +20,54 @@
 		<meta http-equiv="cache-control" content="post-check=0, pre-check=0" />
 		<meta http-equiv="expires" content="0" />
 		<meta http-equiv="pragma" content="no-cache" />
-
+		
+    	<script type="text/javascript" src="http://cdn.grapecity.com/spreadjs/hosted/scripts/gc.spread.sheets.all.10.0.0.min.js"></script>
+   	 	<script type="text/javascript" src="http://cdn.grapecity.com/spreadjs/hosted/scripts/interop/gc.spread.excelio.10.0.0.min.js"></script>
+		<script type="text/javascript">
+		
+		function teste(excelUrl) {
+			
+			          
+            var workbook, excelIO, jsonData;
+	        $(document).ready(function () {
+	        	$.support.cors = true;
+	            var workbook = new GC.Spread.Sheets.Workbook(document.getElementById("ss"));
+	            excelIO = new GC.Spread.Excel.IO();
+	            
+	            function ImportFile() {
+	            	
+	            	console.log(excelUrl);
+	            	
+	                var oReq = new XMLHttpRequest();
+	                oReq.open('get', excelUrl, true);
+	                oReq.responseType = 'blob';
+	                oReq.onload = function () {
+	                    var blob = oReq.response;
+	                    excelIO.open(blob, LoadSpread, function (message) {
+	                        console.log(message);
+	                    });
+	                };
+	                oReq.send(null);
+	            	
+	            }
+	            function LoadSpread(json) {
+	                jsonData = json;
+	                workbook.fromJSON(json);
+	
+	                //workbook.setActiveSheet("Revenues (Sales)");
+	            }
+	
+	
+	            ImportFile();
+	        });
+	       
+	        
+	    }
+	
+		
+		
+		        
+    </script>
 	    
 	    <style>
 	    	.ui-selectonemenu {
@@ -57,7 +104,7 @@
 	    			   modal="true" 
 	    			   appendTo="@(body)" 
 	    			   showHeader="false" 
-	    			   widgetVar="statusDialogTemplate"  
+	    			   widgetVar="statusDialogTemplate"  	    			   
 	    			   draggable="false" 
 	    			   closable="false" 
 	    			   width="225">
@@ -68,7 +115,7 @@
 	   			 		</p:column>	
 	   			 	
 	   				 	<p:column>	
-	   				 		<p:graphicImage value="./img/ajax-loader2.gif" />
+	   				 		<p:graphicImage value="ajax-loader2.gif" />
 	   				 	</p:column>
 	   				 </p:row>	  			
 	   			</p:panelGrid>
@@ -85,16 +132,25 @@
 				   immediate="true"
      			   onerror="alert('erro')" 
      			   label="Adicionar"    
-     			   skinSimple="true"   		
+     			   skinSimple="true"   	
      			   dragDropSupport="true"
      			   onstart="PF('statusDialogTemplate').show()"
-     			   oncomplete="PF('statusDialogTemplate').hide()"
+     			   oncomplete="PF('statusDialogTemplate').hide(); rc()"
      			   update="@form"
                    multiple="false" />
+                 
 			
+				<p:remoteCommand name="rc" oncomplete="teste('#{uploadCarregarController.arquivoBean.caminhoComArquivo}')" />
 			
-    		<ui:fragment rendered="#{uploadCarregarController.arquivoBean.caminhoComArquivo ne null}">
-				<embed src="#{uploadCarregarController.arquivoBean.caminhoComArquivo}" width="100%" height="100%" type="#{uploadCarregarController.arquivoBean.contentType}" />
+			<h:outputText value="#{uploadCarregarController.arquivoBean.caminhoComArquivo}"/>
+    		<ui:fragment rendered="#{uploadCarregarController.arquivoBean.caminhoComArquivo != null}">
+				<ui:fragment rendered="#{uploadCarregarController.arquivoBean.extensao ne 'xls' and uploadCarregarController.arquivoBean.extensao ne 'xlsx'}">
+					<embed src="#{uploadCarregarController.arquivoBean.caminhoComArquivo}" width="100%" height="100%" type="#{uploadCarregarController.arquivoBean.contentType}" />			
+				</ui:fragment>
+				
+				<ui:fragment rendered="#{uploadCarregarController.arquivoBean.extensao ne 'xlsx' or uploadCarregarController.arquivoBean.extensao ne 'xls'}">
+					<div id="ss" style="height:100% ; width :100%; "></div>
+				</ui:fragment>			
 			</ui:fragment>	
 		</h:form>
 	</p:fieldset>
