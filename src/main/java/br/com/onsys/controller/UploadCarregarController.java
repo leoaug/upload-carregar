@@ -15,15 +15,21 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
+import br.com.onsys.bean.ArquivoBean;
 import br.com.onsys.util.ArquivoUtil;
+import br.com.onsys.util.ContentTypeUtil;
 
 
 @Named
 @ViewScoped
 public class UploadCarregarController {
 
-	private String caminhoComArquivo;
+	private ArquivoBean arquivoBean;
 	
+	@PostConstruct
+	public void init() {
+		setArquivoBean(new ArquivoBean());
+	}
 	
 	public void uploadArquivo(FileUploadEvent event) throws Exception {
 		try {
@@ -46,8 +52,8 @@ public class UploadCarregarController {
 		
 			System.out.println(event.getFile()); 	
 			
-			setCaminhoComArquivo("/carregarArquivo/" + tempFile.getName()); 
-			
+			getArquivoBean().setCaminhoComArquivo("/carregarArquivo/" + tempFile.getName()); 
+			getArquivoBean().setContentType(ContentTypeUtil.getContentTypePorExtensao("." + FilenameUtils.getExtension(event.getFile().getFileName())));
 			
 	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Arquivo Carregado"));
 
@@ -60,14 +66,15 @@ public class UploadCarregarController {
 		}
 	}
 
-	public String getCaminhoComArquivo() {
-		return caminhoComArquivo;
+	public ArquivoBean getArquivoBean() {
+		return arquivoBean;
 	}
 
-	public void setCaminhoComArquivo(String caminhoComArquivo) {
-		this.caminhoComArquivo = caminhoComArquivo;
+	public void setArquivoBean(ArquivoBean arquivoBean) {
+		this.arquivoBean = arquivoBean;
 	}
 
+	
 	
 
 
