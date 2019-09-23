@@ -2,9 +2,24 @@
 "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" 
 "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
 
+<<<<<<< HEAD
 <glassfish-web-app error-url="">
 	
   	<parameter-encoding default-charset="UTF-8" />
     <property name="alternatedocroot_1" value="from=/jpg/* dir=C:\Users\c1260311\kdi-grafeno\glassfish4\glassfish\domains\domain1" />
      
+=======
+<glassfish-web-app>
+	
+	<!-- Windows 
+	<property name="" value="from=/arquivos/* dir=c:\Temp" />
+	put images to c:\Temp\tmp folder and URL should be: http://localhost:8080/upload-carregar/arquivos
+	-->
+	
+	<property name="alternatedocroot_3" value="from=/upload/* dir=/tmp" />
+	<!-- 
+	to /tmp folder and URL should be: http://localhost:8080/upload-carregar/excel.xlsx
+	 -->
+
+>>>>>>> 0500e2ee5d2990993cb79a879ea48d941b686299
 </glassfish-web-app>
