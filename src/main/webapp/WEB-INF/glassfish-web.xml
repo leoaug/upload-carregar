@@ -5,6 +5,6 @@
 <glassfish-web-app error-url="">
 	
   	<parameter-encoding default-charset="UTF-8" />
-    <property name="alternatedocroot_1" value="from=/jpg/* dir=C:\Users\c1260311\kdi-grafeno\glassfish4\glassfish\domains\domain1" />
+    <property name="alternatedocroot_1" value="from=/upload/* dir=C:\Users\c1260311\kdi-grafeno\glassfish4\glassfish\domains\domain1" />
      
-<glassfish-web-app>
+</glassfish-web-app>
