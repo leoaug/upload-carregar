@@ -48,15 +48,15 @@ public class UploadCarregarController implements Serializable {
 			
 						
 			FileUtils.copyInputStreamToFile(event.getFile().getInputstream(),tempFile);
-			
+			String extensao = FilenameUtils.getExtension(event.getFile().getFileName());
 			
 			getArquivoBean().setCaminhoComArquivo("/carregarArquivo/" + tempFile.getName()); 
-			getArquivoBean().setExtensao(FilenameUtils.getExtension(event.getFile().getFileName()));
-			getArquivoBean().setContentType(ContentTypeUtil.getContentTypePorExtensao("." + FilenameUtils.getExtension(event.getFile().getFileName())));
-			
-			//PrimeFaces.current().executeScript( "function ImportFile()");
+			getArquivoBean().setExtensao(extensao);
+			getArquivoBean().setContentType(ContentTypeUtil.getContentTypePorExtensao("." + extensao));
+			if(extensao.equals("xls") || extensao.equals("xlsx")) {
+				PrimeFaces.current().executeScript( "teste('/carregarArquivo/"+tempFile.getName()+"')");
 			//PrimeFaces.current().ajax().addCallbackParam("arquivoBean", getArquivoBean().getCaminhoComArquivo());
-			
+			}
 			
 	        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Arquivo Carregado"));
 

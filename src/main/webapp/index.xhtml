@@ -135,14 +135,10 @@
      			   skinSimple="true"   	
      			   dragDropSupport="true"
      			   onstart="PF('statusDialogTemplate').show()"
-     			   oncomplete="PF('statusDialogTemplate').hide(); rc()"
+     			   oncomplete="PF('statusDialogTemplate').hide();"
      			   update="@form"
                    multiple="false" />
-                 
-			
-				<p:remoteCommand name="rc" oncomplete="teste('#{uploadCarregarController.arquivoBean.caminhoComArquivo}')" />
-			
-			<h:outputText value="#{uploadCarregarController.arquivoBean.caminhoComArquivo}"/>
+        
     		<ui:fragment rendered="#{uploadCarregarController.arquivoBean.caminhoComArquivo != null}">
 				<ui:fragment rendered="#{uploadCarregarController.arquivoBean.extensao ne 'xls' and uploadCarregarController.arquivoBean.extensao ne 'xlsx'}">
 					<embed src="#{uploadCarregarController.arquivoBean.caminhoComArquivo}" width="100%" height="100%" type="#{uploadCarregarController.arquivoBean.contentType}" />			
