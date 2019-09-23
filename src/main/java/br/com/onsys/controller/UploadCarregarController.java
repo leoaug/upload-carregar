@@ -18,6 +18,7 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.onsys.bean.ArquivoBean;
+import br.com.onsys.constantes.ArquivoContexto;
 import br.com.onsys.util.ArquivoUtil;
 import br.com.onsys.util.ContentTypeUtil;
 
@@ -50,11 +51,11 @@ public class UploadCarregarController implements Serializable {
 			FileUtils.copyInputStreamToFile(event.getFile().getInputstream(),tempFile);
 			String extensao = FilenameUtils.getExtension(event.getFile().getFileName());
 			
-			getArquivoBean().setCaminhoComArquivo("/carregarArquivo/" + tempFile.getName()); 
+			getArquivoBean().setCaminhoComArquivo(ArquivoContexto.CONTEXTO_ARQUIVO + tempFile.getName()); 
 			getArquivoBean().setExtensao(extensao);
 			getArquivoBean().setContentType(ContentTypeUtil.getContentTypePorExtensao("." + extensao));
 			if(extensao.equals("xls") || extensao.equals("xlsx")) {
-				PrimeFaces.current().executeScript( "teste('/carregarArquivo/"+tempFile.getName()+"')");
+				PrimeFaces.current().executeScript( "teste('" + ArquivoContexto.CONTEXTO_ARQUIVO + tempFile.getName()+"')");
 			//PrimeFaces.current().ajax().addCallbackParam("arquivoBean", getArquivoBean().getCaminhoComArquivo());
 			}
 			
