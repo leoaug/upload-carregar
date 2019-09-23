@@ -1,0 +1,17 @@
+<!DOCTYPE glassfish-web-app PUBLIC 
+"-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" 
+"http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
+
+<glassfish-web-app>
+	
+	<!-- Windows 
+	<property name="" value="from=/arquivos/* dir=c:\Temp" />
+	put images to c:\Temp\tmp folder and URL should be: http://localhost:8080/upload-carregar/arquivos
+	-->
+	
+	<property name="alternatedocroot_3" value="from=/upload/* dir=/tmp" />
+	<!-- 
+	to /tmp folder and URL should be: http://localhost:8080/upload-carregar/excel.xlsx
+	 -->
+
+</glassfish-web-app>
