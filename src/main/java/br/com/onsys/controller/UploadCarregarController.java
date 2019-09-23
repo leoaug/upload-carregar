@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -41,7 +42,11 @@ public class UploadCarregarController implements Serializable {
 		try {
 		
 			
-			File tempFile = File.createTempFile("arquivo", "." + FilenameUtils.getExtension(event.getFile().getFileName()));
+		    //caminho do seu glassfish 
+		    String caminhoFisicoServidor = "C:\\Users\\c1260311\\kdi-grafeno\\glassfish4\\glassfish\\domains\\domain1\\docroot\\upload";
+		        
+			File tempFile = new File(caminhoFisicoServidor + File.separator + event.getFile().getFileName());
+			
 			
 			tempFile.setWritable(true);
 			tempFile.setExecutable(true);
